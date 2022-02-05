@@ -1,3 +1,7 @@
+body {
+	font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: bold;
+}
 #board {
 	padding-top: 25px;
 }
@@ -8,8 +12,11 @@
 .tile {
 	border: 2px solid rgba(220,220,220);
 	box-sizing: border-box;
+	font-size: 32px;
 	margin: 3px;
 	height: 62px;
+	padding-top: 4px;
+	text-align: center;
 	width: 62px;
 }
 #keyboard {
