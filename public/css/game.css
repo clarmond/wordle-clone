@@ -1,0 +1,41 @@
+#board {
+	padding-top: 25px;
+}
+.row {
+	margin: 3px auto;
+	width: 345px;
+}
+.tile {
+	border: 2px solid rgba(220,220,220);
+	box-sizing: border-box;
+	margin: 3px;
+	height: 62px;
+	width: 62px;
+}
+#keyboard {
+	margin: 25px auto;
+	width: 600px;
+}
+.keyboard-row {
+	display: flex;
+	margin: 10px auto;
+	width: 100%;
+}
+button {
+	font-family: inherit;
+	font-weight: bold;
+	border: 0;
+	padding: 0;
+	margin: 0 6px 0 0;
+	height: 58px;
+	border-radius: 4px;
+	cursor: pointer;
+	user-select: none;
+	background-color: rgb(211,214,218);
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-transform: uppercase;
+	min-width: 40px;
+}
