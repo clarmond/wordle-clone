@@ -10,12 +10,33 @@
 	}
 }
 
+* {
+	box-sizing: border-box;
+}
+
 body {
 	font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
 	font-weight: bold;
 }
+#alert-container {
+	padding: 0;
+	position: fixed;
+	left: 0;
+	top: 48px;
+	width: 100%;
+}
+#alert {
+	background-color: #333;
+	border-radius: 5px;
+	color: white;
+	display: none;
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+	width: 350px;
+}
 #board {
-	padding-top: 25px;
+	padding-top: 40px;
 }
 .row {
 	margin: 3px auto;
@@ -30,6 +51,18 @@ body {
 	padding-top: 4px;
 	text-align: center;
 	width: 62px;
+}
+.correct {
+	background-color: #6AA964;
+	color: white;
+}
+.wrong-place {
+	background-color: #C9B458;
+	color: white;
+}
+.bad-guess {
+	background-color: #787C7E;
+	color: white;
 }
 .guess {
 	animation-duration: 0.3s;
@@ -63,4 +96,9 @@ button {
 	align-items: center;
 	text-transform: uppercase;
 	min-width: 40px;
+}
+.hidden {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 1s, opacity 1s linear;
 }
