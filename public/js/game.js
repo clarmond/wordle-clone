@@ -43,6 +43,15 @@ function removeGuess() {
 	currentTile.text('').removeClass('guess');
 }
 
+function showAlert(message, displayTime = 1500) {
+	const $alert = $('#alert');
+	$alert.removeClass('hidden');
+	$alert.text(message).show();
+	window.setTimeout(() => {
+		$alert.addClass('hidden');
+	}, displayTime);
+}
+
 $(function(){
 	$('body').on('keyup', function(e) {
 		// Add letter
