@@ -1,6 +1,7 @@
 let currentRow = 0;
 let currentCol = 0;
-let winningWord = 'CODER';
+let winningWord = 'SLOSH';
+let gameOver = false;
 
 function getTile(row, col) {
 	const tiles = $('.tile');
@@ -25,6 +26,7 @@ function getCurrentLetter() {
 }
 
 function guessLetter(letter) {
+	if (gameOver) return;
 	if (currentCol === 4 && getCurrentLetter() !== '') {
 		return;
 	}
@@ -36,6 +38,7 @@ function guessLetter(letter) {
 }
 
 function removeGuess() {
+	if (gameOver) return;
 	if (currentCol === 4 && getCurrentLetter() !== '') {
 		// Don't move
 	} else {
@@ -52,9 +55,11 @@ function showAlert(message, displayTime = 1500) {
 	const $alert = $('#alert');
 	$alert.removeClass('hidden');
 	$alert.text(message).show();
-	window.setTimeout(() => {
-		$alert.addClass('hidden');
-	}, displayTime);
+	if (displayTime > 0) {
+		window.setTimeout(() => {
+			$alert.addClass('hidden');
+		}, displayTime);
+	}
 }
 
 function getCurrentLetters() {
@@ -68,6 +73,7 @@ function getCurrentLetters() {
 }
 
 function submitGuess() {
+	if (gameOver) return;
 	const currentGuess = getCurrentLetters();
 	if (currentGuess.length < 5) {
 		showAlert('Not enough letters');
@@ -78,14 +84,23 @@ function submitGuess() {
 		return;
 	}
 	const letters = currentGuess.split('');
+	const correctLetters = winningWord.split('');
 	let gotRight = 0;
 	for (let col = 0; col < letters.length; col++) {
 		const letter = letters[col];
-		if (winningWord.indexOf(letter) === col) {
+		const correctLetter = correctLetters[col];
+		if (letter === correctLetter) {
 			gotRight++;
 			updateTile(currentRow, col, letter, 'correct');
 			updateKey(letter, 'correct');
-		} else if (winningWord.indexOf(letter) > -1) {
+			correctLetters[col] = '';
+		}
+	}
+	for (let col = 0; col < letters.length; col++) {
+		const letter = letters[col];
+		const correctLetter = correctLetters[col];
+		if (correctLetter === '') continue;
+		if (correctLetters.includes(letter)) {
 			updateTile(currentRow, col, letter, 'wrong-place');
 			updateKey(letter, 'wrong-place');
 		} else {
@@ -94,10 +109,15 @@ function submitGuess() {
 		}
 	}
 	if (gotRight === 5) {
-		showAlert('You got it!')
+		gameOver = true;
+		showAlert('You got it!');
 	}
 	currentRow++;
 	currentCol = 0;
+	if (currentRow === 6) {
+		gameOver = true;
+		showAlert(`The correct word is ${winningWord}`, 0);
+	}
 }
 
 $(function(){
