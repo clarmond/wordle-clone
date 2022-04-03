@@ -1,5 +1,6 @@
 let currentRow = 0;
 let currentCol = 0;
+let winningWord = 'CODER';
 
 function getTile(row, col) {
 	const tiles = $('.tile');
@@ -52,6 +53,46 @@ function showAlert(message, displayTime = 1500) {
 	}, displayTime);
 }
 
+function getCurrentLetters() {
+	const tiles = $('.tile');
+	let word = '';
+	for (let col = 0; col < 5; col++) {
+		const tile = getTile(currentRow, col);
+		word += tile.text();
+	}
+	return word;
+}
+
+function submitGuess() {
+	const currentGuess = getCurrentLetters();
+	if (currentGuess.length < 5) {
+		showAlert('Not enough letters');
+		return;
+	}
+	if (wordList.indexOf(currentGuess) < 0) {
+		showAlert('Not in word list');
+		return;
+	}
+	const letters = currentGuess.split('');
+	let gotRight = 0;
+	for (let col = 0; col < letters.length; col++) {
+		const letter = letters[col];
+		if (winningWord.indexOf(letter) === col) {
+			gotRight++;
+			updateTile(currentRow, col, letter, 'correct');
+		} else if (winningWord.indexOf(letter) > -1) {
+			updateTile(currentRow, col, letter, 'wrong-place');
+		} else {
+			updateTile(currentRow, col, letter, 'bad-guess');
+		}
+	}
+	if (gotRight === 5) {
+		showAlert('You got it!')
+	}
+	currentRow++;
+	currentCol = 0;
+}
+
 $(function(){
 	$('body').on('keyup', function(e) {
 		// Add letter
@@ -62,5 +103,23 @@ $(function(){
 		if (e.keyCode === 8) {
 			removeGuess();
 		}
+		// Submit guess
+		if (e.keyCode === 13) {
+			submitGuess();
+		}
 	});
+	$('button').on('click', function () {
+		const key = $(this).data('key');
+		// Remove letter
+		if (key === 'backspace') {
+			removeGuess();
+			return;
+		}
+		// Submit guess
+		if (key === 'enter') {
+			submitGuess();
+			return;
+		}
+		guessLetter(key);
+	})
 });
