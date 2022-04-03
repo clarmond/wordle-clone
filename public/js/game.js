@@ -1,6 +1,8 @@
 let currentRow = 0;
 let currentCol = 0;
-let winningWord = 'SLOSH';
+const rnd = Math.floor(Math.random() * 250);
+const winningWord = wordList[rnd];
+console.log(winningWord);
 let gameOver = false;
 
 function getTile(row, col) {
@@ -110,7 +112,7 @@ function submitGuess() {
 	}
 	if (gotRight === 5) {
 		gameOver = true;
-		showAlert('You got it!');
+		showAlert('You got it!', 0);
 	}
 	currentRow++;
 	currentCol = 0;
