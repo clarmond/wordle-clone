@@ -9,6 +9,10 @@ function getTile(row, col) {
 	return $(currentTile);
 }
 
+function updateKey(letter, style) {
+	$(`[data-key="${letter.toLowerCase()}"]`).addClass(style);
+}
+
 function updateTile(row, col, letter, style) {
 	const tile = getTile(row, col);
 	tile.text(letter.toUpperCase());
@@ -80,10 +84,13 @@ function submitGuess() {
 		if (winningWord.indexOf(letter) === col) {
 			gotRight++;
 			updateTile(currentRow, col, letter, 'correct');
+			updateKey(letter, 'correct');
 		} else if (winningWord.indexOf(letter) > -1) {
 			updateTile(currentRow, col, letter, 'wrong-place');
+			updateKey(letter, 'wrong-place');
 		} else {
 			updateTile(currentRow, col, letter, 'bad-guess');
+			updateKey(letter, 'bad-guess');
 		}
 	}
 	if (gotRight === 5) {
