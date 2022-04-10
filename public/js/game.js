@@ -119,6 +119,7 @@ function submitGuess() {
 	if (currentRow === 6) {
 		gameOver = true;
 		showAlert(`The correct word is ${winningWord}`, 0);
+		$('#loser').show().addClass('grow-and-fade');
 	}
 }
 

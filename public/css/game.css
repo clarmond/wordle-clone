@@ -102,3 +102,29 @@ button {
 	opacity: 0;
 	transition: visibility 0s 1s, opacity 1s linear;
 }
+
+@keyframes grow-and-fade {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(30);
+	}
+}
+.grow-and-fade {
+	animation-duration: 1s;
+	animation-name: grow-and-fade;
+	animation-iteration-count: 1;
+}
+
+#loser {
+	position: fixed;
+	left: calc(50% - 50px);
+	top: calc(50% - 100px);
+	opacity: 0;
+}
+#loser img {
+	height: 100px;
+}
